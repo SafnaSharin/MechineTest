@@ -1,0 +1,22 @@
+.img{
+    border-top-right-radius: .3rem;
+    border-top-right-radius: .3rem;
+
+}
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+    .dash_head{
+        background: linear-gradient(-3deg, blue, green);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        font-size: 30px; 
+        font-weight: bold;
+        margin: 0;
+        padding: 0px 8px;
+        margin-bottom: 12px;
+    }

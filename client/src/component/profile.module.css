@@ -1,0 +1,80 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+    }
+    .name{
+        color: black;
+    }
+    .dash_head{
+        background: linear-gradient(-3deg, blue, green);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        font-size: 40px; 
+        font-weight: bold;
+        margin: 0;
+        padding: 10px 9px;
+    }
+    .maindiv{
+        background-color: black;
+        height: 8vh;
+        display: flex;
+    /* padding-top: 36px; */
+    justify-content: center;
+    }
+    .heading{
+        color: #dee2e6;
+        font-family: emoji;
+        font-size: x-large;
+        font-weight: bold;
+        padding: 10px;
+}
+    .header{
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 9px;
+    }
+    .search{
+        border-radius: 4px;
+    }
+    .createButton{
+        color: white;
+        background-color: blue;
+    }
+    .list{
+        height: 81vh;
+    overflow-y: auto;
+    padding: 0%;
+    }
+    .list::-webkit-scrollbar {
+        width: 12px; /* Change this value to adjust the width */
+      }
+      
+      .list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      .list::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      
+      .list::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      
+      /* Custom scrollbar styles for Firefox */
+      @supports (scrollbar-color: #888 #f1f1f1) {
+        .list {
+          scrollbar-color: #888 #f1f1f1;
+          scrollbar-width: thin;
+        }
+      }
