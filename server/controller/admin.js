@@ -1,6 +1,7 @@
 var express = require('express');
 const adminModel=require('../model/admin')
 const bcrypt = require('bcrypt');
+const jwt =require('jsonwebtoken')
 var asyncHandler = require('express-async-handler');
 
 exports.submit =asyncHandler(async(req,res)=>{
@@ -94,25 +95,61 @@ exports.delete = asyncHandler(async (req, res) => {
 
   
  
+// exports.signin = asyncHandler(async (req, res) => {
+//   const { name, password } = req.body;
+
+//   try {
+//       const user = await adminModel.findOne({ name });
+
+//       if (user) {
+//           const match = await bcrypt.compare(password, user.password);
+
+//           if (match) {
+//               res.status(200).json({ message: "Sign-in successful" });
+//           } else {
+//               res.status(401).json({ error: "Invalid credentials" });
+//           }
+//       } else {
+//           res.status(401).json({ error: "Invalid credentials" });
+//       }
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: "An error occurred during sign-in" });
+//   }
+// });
+
 exports.signin = asyncHandler(async (req, res) => {
   const { name, password } = req.body;
+  console.log('Signin request:', { name, password }); 
 
   try {
-      const user = await adminModel.findOne({ name });
+    const admin = await adminModel.findOne({ name: name });
+    console.log('Admin found:', admin); 
 
-      if (user) {
-          const match = await bcrypt.compare(password, user.password);
+    if (!admin) {
+      return res.status(400).json({ invalid: true, message: "Invalid Username" });
+    }
 
-          if (match) {
-              res.status(200).json({ message: "Sign-in successful" });
-          } else {
-              res.status(401).json({ error: "Invalid credentials" });
-          }
-      } else {
-          res.status(401).json({ error: "Invalid credentials" });
-      }
+    const isPasswordMatch = await bcrypt.compare(password, admin.password);
+    console.log('Password match:', isPasswordMatch); 
+
+    if (isPasswordMatch) {
+      const adminDetails = {
+        id: admin._id,
+        name: admin.name,
+        // email: admin.email,
+      };
+
+      const token = jwt.sign({ name: admin.name }, "myjwtsecretkey");
+      admin.tokens = token;
+      await admin.save();
+
+      res.status(200).json({ token: token, adminDetails: adminDetails });
+    } else {
+      return res.status(400).json({ invalid: true, message: "Invalid name or password" });
+    }
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "An error occurred during sign-in" });
+    console.error('Signin error:', error); 
+    return res.status(500).json({ error: "An error occurred during sign-in" });
   }
 });

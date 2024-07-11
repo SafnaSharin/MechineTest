@@ -51,7 +51,7 @@ function Form() {
         if (location.state && location.state.isCreate) {
             navigate('/profile');
         } else {
-            navigate('/sign-in');
+            navigate('/');
         }
     }
 

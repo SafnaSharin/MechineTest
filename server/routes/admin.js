@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var controller = require('../controller/admin')
 const multer = require('multer');
-
+var Authorization =require('../middleware/auth')
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,8 +17,8 @@ var storage = multer.diskStorage({
 
 
 router.post('/submit',upload.single('image'), controller.submit)
- router.get('/details',controller.details)
- router.get('/edit/:id',controller.edit)
+ router.get('/details',Authorization,controller.details)
+ router.get('/edit/:id',Authorization,controller.edit)
  router.put('/update/:id',controller.update)
  router.delete('/delete/:id',controller.delete)
 
